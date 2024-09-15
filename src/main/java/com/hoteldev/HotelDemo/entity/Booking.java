@@ -1,6 +1,5 @@
 package com.hoteldev.HotelDemo.entity;
 
-import com.amazonaws.services.s3.model.MultipartUploadListing;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.Min;
@@ -30,15 +29,21 @@ public class Booking {
 
     @NotNull(message = "check in date is required")
     private LocalDate checkInDate;
+
+    /*Future: validates that this field is a future date*/
     @Future(message = "check in date must be in the future")
     private LocalDate checkOutDate;
 
+    /*validates that this field is at least 1*/
     @Min(value = 1, message = "number of adults must not be less than 1")
     private int numOfAdults;
     @Min(value = 0, message = "number of children must not be less than 0")
     private int numOfChildren;
     private int totalNumberOfGuest;
     private String bookingConfirmationCode;
+
+    /*JoinColumn: the foreign key column user_id in the bookings table
+    that references the User entity*/
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
@@ -49,6 +54,7 @@ public class Booking {
     private Room room;
 
     public void calculateTotalNumberOfGuest() {
+
         this.totalNumberOfGuest = this.numOfAdults + this.numOfChildren;
     }
 

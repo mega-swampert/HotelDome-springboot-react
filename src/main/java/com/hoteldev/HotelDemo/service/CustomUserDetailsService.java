@@ -18,6 +18,8 @@ import org.springframework.stereotype.Service;
  * @Version 1.0
  */
 
+/*service: a service component in spring, allowing it to be detected
+ * during component scanning and instantiated as a bean*/
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
@@ -29,9 +31,13 @@ public class CustomUserDetailsService implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
-
+    /*this class implements the UserDetailsService from spring security.
+    * this interface requires the implementation of the loadUserByUsername().
+    * UsernameNotFoundException is from spring security.*/
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+       /*orElseThrow: if the user is not found, throws an exception with error message
+       * it is a method of Optional class*/
         return userRepository.findByEmail(username).orElseThrow(() -> new ProjectException("Error: Username/Email not found."));
     }
 }

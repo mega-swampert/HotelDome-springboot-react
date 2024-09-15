@@ -17,6 +17,9 @@ import java.util.List;
  * @Version 1.0
  */
 
+/*dto classes serve as data carriers between the service and controller layers.
+* In this class, it contains only the data that is relevant for a specific  operation*/
+
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDTO {

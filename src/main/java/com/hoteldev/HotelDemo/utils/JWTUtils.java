@@ -35,6 +35,7 @@ public class JWTUtils {
     }
 
     public String generateToken(UserDetails userDetails) {
+        //        set token and expired time
         return Jwts.builder()
                 .subject(userDetails.getUsername())
                 .issuedAt(new Date(System.currentTimeMillis()))
@@ -44,10 +45,15 @@ public class JWTUtils {
     }
 
     public String extractUsername(String token) {
+        /*Claims represents the claims in the payload of JWT,
+        * JWT consists of Header, Payload and Signature.
+        * Claims stores various claims passed in token(user info, expiration time, etc)*/
         return extractClaims(token, Claims::getSubject);
     }
 
     private <T> T extractClaims(String token, Function<Claims, T> claimsTFunction) {
+        /*Function<Claims, T> claimsFunction: a functional interface function
+        * that takes a Claims object and returns type T.*/
         return claimsTFunction.apply(Jwts.parser().verifyWith(KEY).build().parseSignedClaims(token).getPayload());
     }
 

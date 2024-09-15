@@ -15,6 +15,16 @@ import java.util.Optional;
  * @Create 5/09/2024 1:19 pm
  * @Version 1.0
  */
+
+/*JpaRepository provides by JPA
+* User is the entity type
+* Long is the type of entity's primary key.
+*
+* JPA uses derived query method, SQL will be created automatically
+*
+* Optional: it indicates a value may or may not exist, avoiding the
+* potential NullPointerException problem.*/
+
 public interface UserRepository extends JpaRepository<User,Long> {
     boolean existsByEmail(String email);
 

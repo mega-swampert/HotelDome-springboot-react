@@ -45,12 +45,21 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+        /*Disables csrf protection: it's not necessary for stateless REST API that
+        * use token(JWT) instead of cookies*/
         httpSecurity.csrf(AbstractHttpConfigurer::disable)
+                /*enable cors with default settings*/
                 .cors(Customizer.withDefaults())
+                /*allows unauthenticated access to "/auth/**", "/rooms/**", "/bookings/**" endpoints.
+                * requires authentication for all others requests*/
                 .authorizeHttpRequests(request -> request.requestMatchers("/auth/**", "/rooms/**", "/bookings/**")
                         .permitAll().anyRequest().authenticated())
+                /*configures the app to be stateless, meaning it doesn't store session data.
+                * we're using JWT*/
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                /*configures the authentication Provider*/
                 .authenticationProvider(authenticationProvider())
+                /*to intercept requests and handle JWT authentication before default authentication process*/
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return httpSecurity.build();

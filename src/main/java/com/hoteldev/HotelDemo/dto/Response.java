@@ -15,6 +15,10 @@ import java.util.List;
  * @Version 1.0
  */
 
+/*data: including getters, setters, tostring(), equals(), hashCode()
+* JsonInclude: jackson annotation that instructs the JSON
+* serializer to exclude properties*/
+
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Response {

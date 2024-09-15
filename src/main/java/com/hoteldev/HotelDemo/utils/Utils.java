@@ -23,6 +23,9 @@ import java.util.stream.Collectors;
 public class Utils {
 
     private static final String ALPHANUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    /*securerandom: it uses a cryptographically strong algorithm to
+    * ensure that the generated random numbers are more unpredictable
+    * and suitable for use in security-related operations.*/
     private static final SecureRandom SECURE_RANDOM = new SecureRandom();
 
     public static String generateRandomAlphanumeric(int length) {
@@ -73,8 +76,10 @@ public class Utils {
         roomDTO.setRoomType(room.getRoomType());
         roomDTO.setRoomPrice(room.getRoomPrice());
         roomDTO.setRoomPhotoUrl(room.getRoomPhotoUrl());
-//        roomDTO.setRoomDescription(room.getRoomDescription());
         if (room.getBookings() != null) {
+            /*converts a collection into a stream is to simplify the processing
+             * of collection elements, especially when you need to
+             * ITERATE, FILTER, MAP, COLLECT, etc.*/
             roomDTO.setBookings(room.getBookings().stream().map(Utils::mapBookingEntityToBookingDTO).collect(Collectors.toList()));
         }
         return roomDTO;
@@ -90,6 +95,7 @@ public class Utils {
         userDTO.setRole(user.getRole());
 
         if (!user.getBookings().isEmpty()) {
+
             userDTO.setBookings(user.getBookings().stream().map(booking -> mapBookingEntityToBookingDTOPlusBookedRoom(booking, false)).collect(Collectors.toList()));
         }
         return userDTO;

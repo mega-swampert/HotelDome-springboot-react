@@ -14,11 +14,27 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @Create 5/09/2024 4:20 pm
  * @Version 1.0
  */
+
+/*configuration class for spring*/
 @Configuration
 public class CorsConfig {
 
+    /*WebMvcConfigurer interface:
+    * adding interceptors
+    * cross-domain configuration
+    * formatters
+    * message converters*/
     @Bean
     public WebMvcConfigurer webMvcConfigurer() {
+     /*   return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE")
+                        .allowedOrigins("*");
+            }
+        };
+*/
        return new WebMvcConfigurer() {
            @Override
            public void addCorsMappings(CorsRegistry registry) {

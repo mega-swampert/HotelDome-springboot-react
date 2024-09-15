@@ -19,6 +19,7 @@ import java.util.List;
 public interface
 IRoomService {
 
+    /*multipartFile is used to handle file upload operations in HTML forms.*/
     Response addNewRoom(MultipartFile photo, String roomType, BigDecimal roomPrice, String description);
 
     List<String> getAllRoomTypes();

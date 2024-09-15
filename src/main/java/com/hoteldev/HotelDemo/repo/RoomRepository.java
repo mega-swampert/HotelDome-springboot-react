@@ -17,6 +17,13 @@ import java.util.List;
  * @Version 1.0
  */
 public interface RoomRepository extends JpaRepository<Room, Long> {
+
+    /*Custom JPQL query
+    *
+    * updates and deletions require the use of the @Modifying
+    * update and delete involve modifications to the database and
+    * need to be performed in a transaction. Add @Transactional at service layer method*/
+
     @Query("SELECT DISTINCT  r.roomType FROM Room r")
     List<String> findDistinctRoomTypes();
 

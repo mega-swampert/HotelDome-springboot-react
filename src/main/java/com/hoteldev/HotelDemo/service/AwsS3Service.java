@@ -27,8 +27,10 @@ import java.io.InputStream;
 @Service
 public class AwsS3Service {
 
+    //    name of the Amazon S3 bucket
     private final String bucketName = "hotel-demo-images";
 
+    //     injects the access key and secret key from properties
     @Value("${aws.s3.access.key}")
     private String awsS3AccessKey;
 
@@ -41,6 +43,7 @@ public class AwsS3Service {
         try {
             String s3Filename = photo.getOriginalFilename();
             BasicAWSCredentials awsCredentials = new BasicAWSCredentials(awsS3AccessKey, awsS3SecretKey);
+            /*build client -> set the credentials -> set the region -> build*/
             AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
                     .withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
                     .withRegion(Regions.AP_SOUTHEAST_2)
